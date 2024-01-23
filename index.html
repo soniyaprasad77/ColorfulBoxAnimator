@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Animation</title>
+    <style>
+      body {
+        margin: 0;
+      }
+
+      .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 50vh;
+        background-color: gray;
+      }
+
+      .box {
+        width: 100px;
+        height: 300px;
+        border-radius: 1px;
+        transition: transform 2s ease-in-out;
+        animation-iteration-count: infinite;
+      }
+
+      @keyframes animate {
+        0% {
+          transform: scaleY(1);
+          transform-origin: bottom;
+        }
+
+        100% {
+          transform: scaleY(0);
+          transform-origin: bottom;
+        }
+      }
+
+      #box1 {
+        background-color: red;
+      }
+      #box2 {
+        background-color: blue;
+      }
+      #box3 {
+        background-color: green;
+      }
+      #box4 {
+        background-color: orange;
+      }
+      #box5 {
+        background-color: skyblue;
+      }
+
+      .buttons {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+      }
+
+      .buttons button {
+        margin: 0 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div id="box1" class="box"></div>
+      <div id="box2" class="box"></div>
+      <div id="box3" class="box"></div>
+      <div id="box4" class="box"></div>
+      <div id="box5" class="box"></div>
+    </div>
+    <div class="buttons">
+      <button onclick="startAnimation()">Start</button>
+      <button onclick="resetAnimation()">Reset</button>
+      <button onclick="stopAnimation()">Stop</button>
+    </div>
+    <script>
+      function startAnimation() {
+        const box1 = document.getElementById("box1");
+        const box2 = document.getElementById("box2");
+        const box3 = document.getElementById("box3");
+        const box4 = document.getElementById("box4");
+        const box5 = document.getElementById("box5");
+        box1.style.animation = `animate 6s ease-in-out forwards infinite alternate`;
+        box2.style.animation = `animate 4s linear forwards infinite alternate`;
+        box3.style.animation = `animate 3s ease-in-out forwards infinite alternate`;
+        box4.style.animation = `animate 2.5s ease-in-out forwards infinite alternate`;
+        box5.style.animation = `animate 5s ease-in-out forwards infinite alternate`;
+      }
+
+      function resetAnimation() {
+        const boxes = document.querySelectorAll(".box");
+        boxes.forEach((box) => {
+          box.style.animation = "none";
+          void box.offsetWidth; // Trigger reflow to reset the animation
+          box.style.animation = null;
+        });
+      }
+
+      function stopAnimation() {
+        const boxes = document.querySelectorAll(".box");
+        boxes.forEach((box) => {
+          const computedStyle = window.getComputedStyle(box);
+          box.style.animationPlayState = "paused";
+        });
+      }
+    </script>
+  </body>
+</html>
